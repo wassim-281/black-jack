@@ -1,8 +1,12 @@
+const front=document.querySelector('.front')
+const dealerCards=document.getElementById('dealers-cards')
 let deck=[]
 
+let dealerCount=0
 
 creatTHCards()
 shufelTheCards()
+dealingForTheDealer()
 
 function creatTHCards(){
     let value=['A','2','3','4','5','6','7','8','9','10','J','Q','K']
@@ -31,7 +35,7 @@ function getValue(card){
     
     let split=card.split('-')
     let value=split[0]
-    console.log(value)
+    
     if(isNaN(value)){
         let  notNum=['J','Q','K']
         let getting10=notNum.some((el)=>{
@@ -47,4 +51,21 @@ function getValue(card){
     
 }
 
+
+function dealingForTheDealer(){
+    let card=deck.pop()
+    let value=getValue(card)
+    front.style.background=`url('./image/${card}.png')`
+    front.style.backgroundSize='cover'
+    dealerCount+=value
+    while(dealerCount<17){
+        card=deck.pop()
+        value=getValue(card)
+        dealerCount+=value
+        let newCard=document.createElement('img')
+        newCard.src=`./image/${card}.png`
+        dealerCards.appendChild(newCard)
+
+    }
+}
 
