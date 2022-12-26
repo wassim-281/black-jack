@@ -1,12 +1,15 @@
 const front=document.querySelector('.front')
 const dealerCards=document.getElementById('dealers-cards')
+const yourCards=document.getElementById('your-cards')
 let deck=[]
 
 let dealerCount=0
+let yourCout=0
 
 creatTHCards()
 shufelTheCards()
 dealingForTheDealer()
+dealForYou()
 
 function creatTHCards(){
     let value=['A','2','3','4','5','6','7','8','9','10','J','Q','K']
@@ -69,3 +72,17 @@ function dealingForTheDealer(){
     }
 }
 
+
+function dealForYou(){
+    for(let i=0;i<2;i++){
+        let card=deck.pop()
+        let value=getValue(card)
+        yourCout+=value
+        let newCard=document.createElement('img')
+        newCard.src=`./image/${card}.png`
+        yourCards.appendChild(newCard)
+
+
+    }
+    
+}
