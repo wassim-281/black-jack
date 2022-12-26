@@ -11,6 +11,9 @@ const messageContainer=document.getElementById('message-container')
 const blackjack=document.getElementById('blackjack')
 const message=document.getElementById('message')
 const reset=document.getElementById('reset')
+const balenceValue=document.getElementById('balence-value')
+const  betValue=document.getElementById('bet-value')
+const valueContainer=document.querySelector('.value-container')
 
 let deck=[]
 
@@ -22,10 +25,16 @@ let  dealerAceCount=0
 
 let  canHit=true
 
+let  balence=1000
+let  bet=0
+
 creatTHCards()
 shufelTheCards()
 dealingForTheDealer()
 dealForYou()
+
+balenceValue.innerHTML=`${balence}$`
+
 
 function creatTHCards(){
     let value=['A','2','3','4','5','6','7','8','9','10','J','Q','K']
@@ -176,20 +185,46 @@ stayBtn.addEventListener('click',()=>{
         }
         if(yourCout>21){
             message.innerHTML='you loose'
+            looseBet()
         }else if(dealerCount>21){
             message.innerHTML='you win'
+            winBet()
         }else if(dealerCount>yourCout){
             message.innerHTML='you loose'
+            looseBet()
         }else if(yourCout>dealerCount){
             message.innerHTML='you win'
+            winBet()
         }else if(dealerCount===yourCout){
             message.innerHTML='tie'
+            tieBet
         }
     },2000)
 
    
     
 })
+
+
+function winBet(){
+    let win=bet*2
+    balence+=win
+    balenceValue.innerHTML=`${balence}$`
+    bet=0
+    betValue.innerHTML=''
+}
+
+function looseBet(){
+    bet=0
+    betValue.innerHTML=''
+}
+
+function tieBet(){
+    balence+=bet
+    balenceValue.innerHTML=`${balence}$`
+    bet=0
+    betValue=''
+}
 
 function calculateAce(card){
 
@@ -239,11 +274,12 @@ reset.addEventListener('click',()=>{
     dealerAceCount=0
 
     canHit=true
-
+    valueContainer.style.display='flex'
     content.style.transform='rotateY(0)'
     content.style.transition='none'
     messageContainer.style.display='none'
     blackjack.style.display='none'
+
     result.forEach((res)=>{
         res.style.color='transparent'
     })
@@ -279,9 +315,33 @@ function deleatYourCards(){
     }
 }
 
-// let test=document.getElementById('test')
+//50$
+document.getElementById('small').addEventListener('click',()=>{
+    bet=50
+    betValue.innerHTML=`${bet}$`
+    valueContainer.style.display='none'
+    balence-=bet
+    balenceValue.innerHTML=`${balence}$`
 
-// let child=test.children[]
-// console.log(child)
+})
 
+//100$
+
+document.getElementById('midium').addEventListener('click',()=>{
+    bet=100
+    betValue.innerHTML=`${bet}$`
+    valueContainer.style.display='none'
+    balence-=bet
+    balenceValue.innerHTML=`${balence}$`
+})
+
+//500
+
+document.getElementById('heigh').addEventListener('click',()=>{
+    bet=500
+    betValue.innerHTML=`${bet}$`
+    valueContainer.style.display='none'
+    balence-=bet
+    balenceValue.innerHTML=`${balence}$`
+})
 

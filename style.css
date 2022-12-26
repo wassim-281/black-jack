@@ -161,3 +161,93 @@ button:hover{
 .reset:hover{
     color: gold;
 }
+
+.bet-container{
+    position: absolute;
+    top: 50%;
+    left: 5%;
+    color: white;
+    text-transform: capitalize;
+    width: 150px;
+    
+    height: 35px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.bet-value{
+    width: 90px;
+    height:30px ;
+    background-color: white;
+    border-radius: 10px;
+    display: grid;
+    place-content: center;
+    color: green;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.value-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    top: 65%;
+    left: 4%;
+    width: 200px;
+    height: 40px;
+    
+}
+
+
+.small,.midium,.heigh{
+    height: 100%;
+    width: 32%;
+    
+    border-radius: 10px;
+    display: grid;
+    place-content: center;
+    cursor: pointer;
+
+}
+
+.small{
+    background:linear-gradient(135deg,black,green) ;
+}
+
+.midium{
+    background:linear-gradient(135deg,black,orange) ;
+}
+
+.heigh{
+    background:linear-gradient(135deg,black,red) ;
+}
+
+
+.balence-container{
+    position: absolute;
+    left: 4%;
+    top: 82%;
+    width: 210px;
+    height: 40px;
+    
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    text-transform: capitalize;
+
+}
+
+.balence-value{
+    height: 30px;
+    width: 100px;
+    background-color: white;
+    border-radius: 10px;
+    display: grid;
+    place-content: center;
+    color: green;
+    font-size: 20px;
+    font-weight: 600;
+}
