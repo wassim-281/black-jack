@@ -39,8 +39,8 @@ function creatTHCards(){
 }
 
 function shufelTheCards(){
-    
-    
+
+
     for(let i=0;i<deck.length;i++){
         let random=Math.floor(Math.random()*deck.length)
         let place=deck[i]
@@ -51,10 +51,10 @@ function shufelTheCards(){
 
 
 function getValue(card){
-    
+
     let split=card.split('-')
     let value=split[0]
-    
+
     if(isNaN(value)){
         let  notNum=['J','Q','K']
         let getting10=notNum.some((el)=>{
@@ -67,7 +67,7 @@ function getValue(card){
         }
     }
     return parseInt(value)
-    
+
 }
 
 
@@ -86,13 +86,22 @@ function dealingForTheDealer(){
         let newCard=document.createElement('img')
         newCard.src=`./image/${card}.png`
         dealerCards.appendChild(newCard)
-        
+
         if(dealerCount>21){
-            
+
             reduceDealerAce()
-            
+
         }
 
+    }
+
+    let childrenNumber=dealerCards.childElementCount
+    let lastIndex=childrenNumber-1
+    for(let i=2;i<childrenNumber;i++){
+        let lastChild=dealerCards.children[lastIndex]
+        lastChild.style.display='none'
+        
+        lastIndex-=1
     }
 
     
@@ -102,7 +111,7 @@ function dealingForTheDealer(){
 function dealForYou(){
     for(let i=0;i<2;i++){
         let card=deck.pop()
-        
+
         calculateAce(card)
         reduceAce()
         let value=getValue(card)
@@ -113,7 +122,7 @@ function dealForYou(){
 
 
     }
-    
+
 }
 
 
@@ -122,22 +131,22 @@ hitBtn.addEventListener('click',()=>{
         if(yourCout<21){
             let card=deck.pop()
             calculateAce(card)
-        
+
             let value=getValue(card)
             yourCout+=value
             let newCard=document.createElement('img')
             newCard.src=`./image/${card}.png`
             yourCards.appendChild(newCard)
-        
-        } 
+
+        }
         if(yourCout>21){
             reduceAce()
         }
-    
+
 
     }
-    
-    
+
+
 })
 
 
@@ -145,37 +154,51 @@ stayBtn.addEventListener('click',()=>{
     canHit=false
     content.style.transform='rotateY(-.5turn)'
     content.style.transition='.5s'
-    messageContainer.style.display='block'
+
+    let childrenNumber=dealerCards.childElementCount
+    for(let i=2;i<childrenNumber;i++){
+        let child=dealerCards.children[i]
+        child.style.display='block'
+    }
+
+   
     result.forEach((res)=>{
         res.style.color='white'
     })
 
     dealerSum.innerHTML=dealerCount
     yourSum.innerHTML=yourCout
-    if(yourCout===21){
-        blackjack.style.display='block'
-    }
-    if(yourCout>21){
-        message.innerHTML='you loose'
-    }else if(dealerCount>21){
-        message.innerHTML='you win'
-    }else if(dealerCount>yourCout){ 
-        message.innerHTML='you loose'
-    }else if(yourCout>dealerCount){
-        message.innerHTML='you win'
-    }else if(dealerCount===yourCout){
-        message.innerHTML='tie'
-    }
+
+    setTimeout(()=>{
+        messageContainer.style.display='block'
+        if(yourCout===21){
+            blackjack.style.display='block'
+        }
+        if(yourCout>21){
+            message.innerHTML='you loose'
+        }else if(dealerCount>21){
+            message.innerHTML='you win'
+        }else if(dealerCount>yourCout){
+            message.innerHTML='you loose'
+        }else if(yourCout>dealerCount){
+            message.innerHTML='you win'
+        }else if(dealerCount===yourCout){
+            message.innerHTML='tie'
+        }
+    },2000)
+
+   
+    
 })
 
 function calculateAce(card){
-    
+
     let  split=card.split('-')
     let value=split[0]
-    
+
    if(value==='A'){
     yourAceCount+=1
-    
+
    }
 }
 
@@ -191,18 +214,18 @@ function reduceAce(){
 function calculateAceForDealer(card){
     let  split=card.split('-')
     let value=split[0]
-    
+
    if(value==='A'){
     dealerAceCount+=1
-    
+
    }
-   
+
 }
 
 
 function reduceDealerAce(){
     while(dealerAceCount>0 && dealerCount>21){
-        
+
         dealerCount-=10
         dealerAceCount-=1
     }
@@ -220,6 +243,7 @@ reset.addEventListener('click',()=>{
     content.style.transform='rotateY(0)'
     content.style.transition='none'
     messageContainer.style.display='none'
+    blackjack.style.display='none'
     result.forEach((res)=>{
         res.style.color='transparent'
     })
@@ -254,3 +278,10 @@ function deleatYourCards(){
         yourCards.removeChild(lastChild)
     }
 }
+
+// let test=document.getElementById('test')
+
+// let child=test.children[]
+// console.log(child)
+
+
