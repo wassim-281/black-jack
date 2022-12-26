@@ -137,6 +137,7 @@ function dealForYou(){
 
 hitBtn.addEventListener('click',()=>{
    if(canHit){
+        valueContainer.style.display='none'
         if(yourCout<21){
             let card=deck.pop()
             calculateAce(card)
@@ -197,7 +198,7 @@ stayBtn.addEventListener('click',()=>{
             winBet()
         }else if(dealerCount===yourCout){
             message.innerHTML='tie'
-            tieBet
+            tieBet()
         }
     },2000)
 
@@ -223,7 +224,7 @@ function tieBet(){
     balence+=bet
     balenceValue.innerHTML=`${balence}$`
     bet=0
-    betValue=''
+    betValue.innerHTML=''
 }
 
 function calculateAce(card){
