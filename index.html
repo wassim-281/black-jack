@@ -9,7 +9,7 @@
 
 </head>
 <body>
-    <div class="dealer" id="dealer">dealer : <span id="dealer-sum">15</span></div>
+    <div class="result dealer" id="dealer">dealer : <span id="dealer-sum"></span></div>
     <div class="dealers-cards" id="dealers-cards">
         <div class="hidden" id="hidden">
             <div class="content">
@@ -22,7 +22,7 @@
         
     </div>
 
-    <div class="you" id="you">you : <span id="your-sum">15</span></div>
+    <div class="result you" id="you">you : <span id="your-sum"></span></div>
     <div class="your-cards" id="your-cards">
         
     </div>
@@ -31,6 +31,12 @@
         <button class="hit" id="hit">hit</button>
         <button class="stay" id="stay">stay</button>
     </div>
+
+   <div class="message-container" id="message-container">
+        <div class="blackjack" id="blackjack">blackjack</div>
+        <div class="message" id="message">you win</div>
+   </div>
+
     <script src="./script.js"></script>
 </body>
 </html>

@@ -1,7 +1,15 @@
 const front=document.querySelector('.front')
+const  content=document.querySelector('.content')
 const dealerCards=document.getElementById('dealers-cards')
 const yourCards=document.getElementById('your-cards')
 const hitBtn=document.getElementById('hit')
+const stayBtn=document.getElementById('stay')
+const dealerSum=document.getElementById('dealer-sum')
+const yourSum=document.getElementById('your-sum')
+const result=document.querySelectorAll('.result')
+const messageContainer=document.getElementById('message-container')
+const blackjack=document.getElementById('blackjack')
+const message=document.getElementById('message')
 let deck=[]
 
 let dealerCount=0
@@ -9,6 +17,8 @@ let yourCout=0
 
 let yourAceCount=0
 let  dealerAceCount=0
+
+let  canHit=true
 
 creatTHCards()
 shufelTheCards()
@@ -92,7 +102,7 @@ function dealForYou(){
         let card=deck.pop()
         
         calculateAce(card)
-        
+        reduceAce()
         let value=getValue(card)
         yourCout+=value
         let newCard=document.createElement('img')
@@ -106,25 +116,54 @@ function dealForYou(){
 
 
 hitBtn.addEventListener('click',()=>{
-   
-    if(yourCout<21){
-        let card=deck.pop()
-        calculateAce(card)
+   if(canHit){
+        if(yourCout<21){
+            let card=deck.pop()
+            calculateAce(card)
         
-        let value=getValue(card)
-        yourCout+=value
-        let newCard=document.createElement('img')
-        newCard.src=`./image/${card}.png`
-        yourCards.appendChild(newCard)
+            let value=getValue(card)
+            yourCout+=value
+            let newCard=document.createElement('img')
+            newCard.src=`./image/${card}.png`
+            yourCards.appendChild(newCard)
         
-    } 
-    if(yourCout>21){
-        reduceAce()
+        } 
+        if(yourCout>21){
+            reduceAce()
+        }
+    
+
     }
     
     
 })
 
+
+stayBtn.addEventListener('click',()=>{
+    canHit=false
+    content.style.transform='rotateY(-.5turn)'
+    messageContainer.style.display='block'
+    result.forEach((res)=>{
+        res.style.color='white'
+    })
+
+    dealerSum.innerHTML=dealerCount
+    yourSum.innerHTML=yourCout
+    if(yourCout===21){
+        blackjack.style.display='block'
+    }
+    if(yourCout>21){
+        message.innerHTML='you loose'
+    }else if(dealerCount>21){
+        message.innerHTML='you win'
+    }else if(dealerCount>yourCout){ 
+        message.innerHTML='you loose'
+    }else if(yourCout>dealerCount){
+        message.innerHTML='you win'
+    }else if(dealerCount===yourCout){
+        message.innerHTML='tie'
+    }
+})
 
 function calculateAce(card){
     
@@ -139,7 +178,7 @@ function calculateAce(card){
 
 
 function reduceAce(){
-    while(yourAceCount>0){
+    while(yourAceCount>0 && yourCout>21){
         yourCout-=10
         yourAceCount-=1
     }
@@ -159,7 +198,7 @@ function calculateAceForDealer(card){
 
 
 function reduceDealerAce(){
-    while(dealerAceCount>0){
+    while(dealerAceCount>0 && dealerCount>21){
         
         dealerCount-=10
         dealerAceCount-=1
