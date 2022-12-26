@@ -7,6 +7,8 @@ let deck=[]
 let dealerCount=0
 let yourCout=0
 
+let yourAceCount=0
+
 creatTHCards()
 shufelTheCards()
 dealingForTheDealer()
@@ -77,6 +79,9 @@ function dealingForTheDealer(){
 function dealForYou(){
     for(let i=0;i<2;i++){
         let card=deck.pop()
+        
+        calculateAce(card)
+        
         let value=getValue(card)
         yourCout+=value
         let newCard=document.createElement('img')
@@ -90,14 +95,43 @@ function dealForYou(){
 
 
 hitBtn.addEventListener('click',()=>{
+   
     if(yourCout<21){
         let card=deck.pop()
+        calculateAce(card)
+        
         let value=getValue(card)
         yourCout+=value
         let newCard=document.createElement('img')
         newCard.src=`./image/${card}.png`
         yourCards.appendChild(newCard)
+        
+    } 
+    if(yourCout>21){
+        reduceAce()
     }
+    
+    
 })
+
+
+function calculateAce(card){
+    
+    let  split=card.split('-')
+    let value=split[0]
+    
+   if(value==='A'){
+    yourAceCount+=1
+    
+   }
+}
+
+
+function reduceAce(){
+    while(yourAceCount>0){
+        yourCout-=10
+        yourAceCount-=1
+    }
+}
 
 
