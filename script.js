@@ -1,6 +1,7 @@
 const front=document.querySelector('.front')
 const dealerCards=document.getElementById('dealers-cards')
 const yourCards=document.getElementById('your-cards')
+const hitBtn=document.getElementById('hit')
 let deck=[]
 
 let dealerCount=0
@@ -86,3 +87,17 @@ function dealForYou(){
     }
     
 }
+
+
+hitBtn.addEventListener('click',()=>{
+    if(yourCout<21){
+        let card=deck.pop()
+        let value=getValue(card)
+        yourCout+=value
+        let newCard=document.createElement('img')
+        newCard.src=`./image/${card}.png`
+        yourCards.appendChild(newCard)
+    }
+})
+
+
