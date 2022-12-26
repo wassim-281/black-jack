@@ -10,6 +10,8 @@ const result=document.querySelectorAll('.result')
 const messageContainer=document.getElementById('message-container')
 const blackjack=document.getElementById('blackjack')
 const message=document.getElementById('message')
+const reset=document.getElementById('reset')
+
 let deck=[]
 
 let dealerCount=0
@@ -142,6 +144,7 @@ hitBtn.addEventListener('click',()=>{
 stayBtn.addEventListener('click',()=>{
     canHit=false
     content.style.transform='rotateY(-.5turn)'
+    content.style.transition='.5s'
     messageContainer.style.display='block'
     result.forEach((res)=>{
         res.style.color='white'
@@ -202,5 +205,52 @@ function reduceDealerAce(){
         
         dealerCount-=10
         dealerAceCount-=1
+    }
+}
+
+reset.addEventListener('click',()=>{
+    dealerCount=0
+    yourCout=0
+
+    yourAceCount=0
+    dealerAceCount=0
+
+    canHit=true
+
+    content.style.transform='rotateY(0)'
+    content.style.transition='none'
+    messageContainer.style.display='none'
+    result.forEach((res)=>{
+        res.style.color='transparent'
+    })
+    deleatDealerCards()
+    deleatYourCards()
+
+    dealingForTheDealer()
+    dealForYou()
+
+    if(deck.length<=15){
+        creatTHCards()
+        shufelTheCards()
+    }
+})
+
+
+
+
+function deleatDealerCards(){
+    let childrenNumber=dealerCards.childElementCount
+    for (let i=1;i<childrenNumber;i++){
+        let lastChild=dealerCards.lastElementChild
+        dealerCards.removeChild(lastChild)
+    }
+}
+
+
+function deleatYourCards(){
+    let childrenNumber=yourCards.childElementCount
+    for(let i=0;i<childrenNumber;i++){
+        let lastChild=yourCards.lastElementChild
+        yourCards.removeChild(lastChild)
     }
 }

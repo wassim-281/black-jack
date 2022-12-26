@@ -143,3 +143,21 @@ button:hover{
     text-transform: uppercase;
 
 }
+
+
+.reset{
+    color: white;
+    position: absolute;
+    top: 75%;
+    left: 50%;
+    transform: translate(-50%);
+    font-size: 22px;
+    cursor: pointer;
+    text-transform: capitalize;
+    text-decoration: underline;
+    transition: .5s;
+}
+
+.reset:hover{
+    color: gold;
+}
