@@ -8,6 +8,7 @@ let dealerCount=0
 let yourCout=0
 
 let yourAceCount=0
+let  dealerAceCount=0
 
 creatTHCards()
 shufelTheCards()
@@ -61,18 +62,28 @@ function getValue(card){
 function dealingForTheDealer(){
     let card=deck.pop()
     let value=getValue(card)
+    calculateAceForDealer(card)
     front.style.background=`url('./image/${card}.png')`
     front.style.backgroundSize='cover'
     dealerCount+=value
     while(dealerCount<17){
         card=deck.pop()
         value=getValue(card)
+        calculateAceForDealer(card)
         dealerCount+=value
         let newCard=document.createElement('img')
         newCard.src=`./image/${card}.png`
         dealerCards.appendChild(newCard)
+        
+        if(dealerCount>21){
+            
+            reduceDealerAce()
+            
+        }
 
     }
+
+    
 }
 
 
@@ -135,3 +146,22 @@ function reduceAce(){
 }
 
 
+function calculateAceForDealer(card){
+    let  split=card.split('-')
+    let value=split[0]
+    
+   if(value==='A'){
+    dealerAceCount+=1
+    
+   }
+   
+}
+
+
+function reduceDealerAce(){
+    while(dealerAceCount>0){
+        
+        dealerCount-=10
+        dealerAceCount-=1
+    }
+}
