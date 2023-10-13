@@ -14,6 +14,9 @@ const reset=document.getElementById('reset')
 const balenceValue=document.getElementById('balence-value')
 const  betValue=document.getElementById('bet-value')
 const valueContainer=document.querySelector('.value-container')
+const  test=document.getElementById('test')
+
+
 
 let deck=[]
 
